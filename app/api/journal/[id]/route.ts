@@ -16,19 +16,19 @@ export const PATCH = async (request, { params }) => {
     },
   });
 
-  // const analysis = await analyzeEntry(entry);
-  // await prisma.analysis.upsert({
-  //   where: {
-  //     entryId: params.id,
-  //   },
-  //   create: {
-  //     entryId: params.id,
-  //     ...analysis,
-  //   },
-  //   update: {
-  //     ...analysis,
-  //   },
-  // });
+  const analysis = await analyzeEntry(entry);
+  await prisma.analysis.upsert({
+    where: {
+      entryId: params.id,
+    },
+    create: {
+      entryId: params.id,
+      ...analysis,
+    },
+    update: {
+      ...analysis,
+    },
+  });
 
   revalidatePath(`/journal/${params.id}`);
 
